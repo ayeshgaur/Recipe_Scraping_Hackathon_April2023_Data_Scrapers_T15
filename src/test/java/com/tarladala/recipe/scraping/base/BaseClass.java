@@ -9,8 +9,8 @@ import org.testng.annotations.Test;
 
 public class BaseClass {
     public static WebDriver driver;
-
-
+   
+   
     @BeforeTest
     public void setUpDriver() {
         System.setProperty("webdriver.chrome.driver", "C:\\Users\\ayesh\\Downloads\\chromedriver_win32 (1)\\chromedriver.exe");
