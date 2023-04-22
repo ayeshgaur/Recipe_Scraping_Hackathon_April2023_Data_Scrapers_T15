@@ -12,7 +12,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 public class ReadExcel {
-    public Map<String, String> readUserDetails () throws IOException {
+    public Map<String, String> readRecipeData() throws IOException {
         //creating an object named path where providing the path of excel sheet to get properties of the file
         String path = System.getProperty("D:\\AYESH\\SDET\\Recipe Scraping Hackathon April 2023\\scrapinghackathondocuments\\IngredientsAndComorbidities-ScrapperHackathon");
 // creating the object excelFile of the file with earlier created object(path) as a parameter
