@@ -25,17 +25,17 @@ public class ReadExcel {
         XSSFSheet datasheet = workbook.getSheet("Sheet1");
         //Iterate the rows of sheet
         Iterator<Row> row = datasheet.rowIterator();
-        //gets the details from row 0 & row 1 as K,V pair and store them as an object userdetails
-        Map<String, String> userDetails = new HashMap<String, String>();
+        //gets the details from row 0 & row 1 as K,V pair and store them as an object readRecipeData
+        Map<String, String> eliminators = new HashMap<String, String>();
         while (row.hasNext()){
             Row currRow =row.next();
             if(currRow.getRowNum() > 0) {
-                userDetails.put(currRow.getCell(0).getStringCellValue(), currRow.getCell(1).getStringCellValue());
+                eliminators.put(currRow.getCell(0).getStringCellValue(), currRow.getCell(1).getStringCellValue());
 
             }
         }
         workbook.close();
-        return userDetails;
+        return eliminators;
 
     }
 }
