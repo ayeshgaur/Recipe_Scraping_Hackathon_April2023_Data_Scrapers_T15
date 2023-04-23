@@ -16,13 +16,14 @@ public XSSFRow row;
 public XSSFCell cell;
 
     public void setCellData(String sheetName, int rownum, int column, String data) throws IOException {
-        File xlfile =  new File("C:/Users/ayesh/IdeaProjects/Data_Scraping_Framework_Demo1/src/test/resources/outPutData.xlsx");
+        String path = System.getProperty("C:/Users/ayesh/IdeaProjects/Data_Scraping_Framework_Demo1/src/test/resources/outPutData.xlsx");
+        File xlfile =  new File(path);
         if(!xlfile.exists()){
          workbook = new XSSFWorkbook();
-fo = new FileOutputStream("C:/Users/ayesh/IdeaProjects/Data_Scraping_Framework_Demo1/src/test/resources/outPutData.xlsx");
+fo = new FileOutputStream(path);
 workbook.write(fo);
         }
-        fi= new FileInputStream("C:/Users/ayesh/IdeaProjects/Data_Scraping_Framework_Demo1/src/test/resources/outPutData.xlsx");
+        fi= new FileInputStream(path);
         workbook = new XSSFWorkbook(fi);
 
         if(workbook.getSheetIndex(sheetName)==-1)
@@ -35,7 +36,7 @@ workbook.write(fo);
 
         cell=row.createCell(column);
         cell.setCellValue(data);
-        fo=new FileOutputStream("C:/Users/ayesh/IdeaProjects/Data_Scraping_Framework_Demo1/src/test/resources/outPutData.xlsx");
+        fo=new FileOutputStream(path);
         workbook.write(fo);
         workbook.close();
         fi.close();

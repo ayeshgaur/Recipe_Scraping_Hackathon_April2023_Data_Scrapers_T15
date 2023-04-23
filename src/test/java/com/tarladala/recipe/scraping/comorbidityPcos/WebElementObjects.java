@@ -1,8 +1,8 @@
 package com.tarladala.recipe.scraping.comorbidityPcos;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 public class WebElementObjects {
-    By recipeList = By.xpath("//div[@id= 'rcpinglist']");
+public By eliminateLemonGrass = By.xpath("//*[text()= 'lemongrass']");
 }
