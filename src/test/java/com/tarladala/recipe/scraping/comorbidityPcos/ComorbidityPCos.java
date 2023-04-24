@@ -54,6 +54,7 @@ public class ComorbidityPCos extends BaseClass {
                     WriteExcel writeOutput = new WriteExcel();
                     //Recipe id
                     try {
+                        System.out.print(recipeId);
                         writeOutput.setCellData("PCOS", rowCounter, 0, recipeId);
                     } catch (Exception e) {
 
