@@ -7,9 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -18,44 +16,47 @@ public class ComorbidityPCos extends BaseClass {
 
     @Test
     public void extractRecipe() throws InterruptedException, IOException {
+        List<String> eliminators = Arrays.asList(new String[]{"cake", "pastries", "white bread", "pizza",
+                "burger", "ice cream", "soda", "red meat", "beef", "lamb", "pork", "processed meat", "ham",
+                "sausage", "hotdog", "pepperoni", "sausage", "jerky", "deli meat", "fry", "fried",
+                "milk", "cheese", "yogurt", "curd", "cream", "cottage cheese", "paneer", "soy", "wheat",
+                "pasta", "cereal", "gluten", "all purpose flour", "rye", "barley", "white rice", "doughnuts",
+                "Fries", "coffee", "vegetable oil", "soybean oil", "canola oil", "rapeseed oil",
+                "sunflower oil", "safflower oil"});
 
         driver.findElement(By.xpath("//div/a[text()= 'Recipe A To Z']")).click();
         Thread.sleep(2000);
         int rowCounter = 1;
         // run in a loop for all recipe in a page
         for (int j = 1; j <= 22; j++) {
-
             int pageindex = j;
             driver.navigate().to("https://www.tarladalal.com/RecipeAtoZ.aspx?pageindex=" + j);
-            List<WebElement> recipeElements = driver.findElements(By.xpath("//span[@class='rcc_recipename']"));
+            List<WebElement> recipeCardElements = driver.findElements(By.xpath("//div[@class='rcc_recipecard']"));
             List<String> recipeUrls = new ArrayList<>();
+            Map<String, String> recipeIdUrls = new HashMap<>();
+
             //Looping through all recipes Web elements and generating a navigation URL
-            recipeElements.stream().forEach(recipeElement -> {
-                recipeUrls.add("https://www.tarladalal.com/" + recipeElement.findElement(By.tagName("a")).getDomAttribute("href"));
+            recipeCardElements.stream().forEach(recipeCardElement -> {
+                recipeUrls.add("https://www.tarladalal.com/" + recipeCardElement.findElement(By.xpath("//span[@class='rcc_recipename']/a")).getDomAttribute("href"));
+               //example: recipeIdUrls.put("id","url");
+                recipeIdUrls.put(recipeCardElement.getDomAttribute("id").replace("rcp",""),"https://www.tarladalal.com/" + recipeCardElement.findElement(By.tagName("a")).getDomAttribute("href"));
             });
 
-            for (int i = 0; i < recipeUrls.size(); i++) {
-                String recipeUrl = recipeUrls.get(i);
+            for (Map.Entry<String,String> recipeIdUrlEntry : recipeIdUrls.entrySet())  {
+                String recipeUrl = recipeIdUrlEntry.getValue();
+                String recipeId = recipeIdUrlEntry.getKey();
                 driver.navigate().to(recipeUrl);
                 driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
-                WebElement ingredientList = driver.findElement(By.xpath("//div[@id= 'rcpinglist']"));
 
-                List<String> eliminators = Arrays.asList(new String[]{"Cake", "Pastries", "White Bread", "Pizza",
-                        "Burger", "ice cream", "soda", "Red Meat", "Processed Meat", "Milk", "Cheese", "Yogurt", "curd",
-                        "soy", "wheat", "pasta", "cereal", "gluten", "white rice", "Doughnuts", "Fries", "coffee", "vegetable oil",
-                        "soybean oil", "canola oil", "rapeseed oil", "sunflower oil", "safflower oil"});
-
-
-                if (isEliminated(ingredientList, eliminators)) {
+                if (isEliminated(eliminators)) {
                     //driver.navigate().to("//div/a[text()= 'Recipe A To Z']");
                 } else {
                     WriteExcel writeOutput = new WriteExcel();
                     //Recipe id
                     try {
-                        String recipeId = recipeUrl.substring(recipeUrls.lastIndexOf('-') + 1);
                         System.out.print(recipeId);
                         writeOutput.setCellData("PCOS", rowCounter, 0, recipeId);
-                    } catch (Exception I) {
+                    } catch (Exception e) {
 
                     }
 
@@ -135,20 +136,35 @@ public class ComorbidityPCos extends BaseClass {
 
                     }
 
+                    rowCounter++;
+
                 }
 
-                rowCounter++;
+
             }
         }
 
     }
 
 
-    private boolean isEliminated(WebElement rcpinglist, List<String> eliminators) {
+    private boolean isEliminated(List<String> eliminators) {
         AtomicBoolean isEliminatorPresent = new AtomicBoolean(false);
+
         eliminators.parallelStream().forEach(eliminator -> {
             try {
-                if (null != rcpinglist.findElement(By.xpath("//*[text() ='" + eliminator + "']"))) {
+                WebElement ingredientWebElement = driver.findElement(By.xpath("//div[@id= 'rcpinglist']"));
+                String ingredients = ingredientWebElement.getText();
+                if (null != ingredients && null != eliminator && ingredients.toLowerCase().contains(eliminator.toLowerCase())) {
+                    isEliminatorPresent.set(true);
+                }
+            } catch (Exception e) {
+                System.out.print("No Such Element " + e.getLocalizedMessage());
+            }
+            try {
+
+                WebElement methodWebElement = driver.findElement(By.xpath("//div[@id='recipe_small_steps']"));
+                String method = methodWebElement.getText();
+                if (null != method && null != eliminator && method.toLowerCase().contains(eliminator.toLowerCase())) {
                     isEliminatorPresent.set(true);
                 }
             } catch (Exception e) {
