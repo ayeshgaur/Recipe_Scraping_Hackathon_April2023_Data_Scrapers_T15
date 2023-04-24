@@ -13,7 +13,7 @@ public class BaseClass {
    
     @BeforeTest
     public void setUpDriver() {
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\ayesh\\Downloads\\chromedriver_win32 (1)\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "./src/test/resources/driver/chromedriver_win32 (1)/chromedriver.exe");
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--remote-allow-origins=*");
         driver = new ChromeDriver(options);
