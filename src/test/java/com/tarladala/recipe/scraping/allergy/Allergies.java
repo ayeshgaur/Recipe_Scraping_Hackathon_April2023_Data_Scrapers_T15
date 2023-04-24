@@ -1,4 +1,4 @@
-package com.tarladala.recipe.scraping.Allergy;
+package com.tarladala.recipe.scraping.allergy;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,7 +18,7 @@ import com.tarladala.recipe.scraping.utilities.WriteExcel;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class Allager extends BaseClass {
+public class Allergies extends BaseClass {
 
 	@Test
 	public void allrecipe () throws InterruptedException, IOException
@@ -45,7 +45,7 @@ public class Allager extends BaseClass {
 					String xpathstr="//div[1]/div[2]/a[text()='"+j+"']";
 					driver.findElement(By.xpath(xpathstr)).click();
 					//driver.findElement(By.xpath("(//span[1]/a)[1]")).click();
-					List<String> eliminatorsList= Arrays.asList(new String []{"Milk","Soy","Egg","Sesame","Peanuts","walnut","almond","hazelnut","pecan","cashew","pistachio","Shell fish","Seafood"});
+					List<String> eliminatorsList= Arrays.asList(new String []{"milk","soy","egg","sesame","peanuts","walnut","almond","hazelnut","pecan","cashew","pistachio","shell fish","seafood"});
 					//WebElement ingrendientList = driver.findElement(By.xpath("//div[@id= 'rcpinglist']"));
 					//ingrendientList = ingrendientList.toLowerCase();
 
@@ -172,25 +172,28 @@ public class Allager extends BaseClass {
 
 	private boolean isEliminated(WebElement rcpinglist, List<String> eliminators) {
 		AtomicBoolean isEliminatorPresent = new AtomicBoolean(false);
-		/*	eliminators.parallelStream().forEach(eliminator -> {
-			try {
-				if (null != rcpinglist.findElement(By.xpath("//*[text() ='" + eliminator + "']"))) {
-					isEliminatorPresent.set(true);
-				}
-			} catch (Exception e) {
-				System.out.print("No Such Element " + e.getLocalizedMessage());
-			}
-		});*/
-		for (String expectedValue : eliminators) {
-			try {
-				if (rcpinglist.getText().equalsIgnoreCase(expectedValue)) 
-					isEliminatorPresent.set(true);
-			}
-			catch (Exception e) {
-				System.out.print("No Such Element " + e.getLocalizedMessage());
-			}
+		 eliminators.parallelStream().forEach(eliminator -> {
+	            try {
+	                WebElement ingredientWebElement = driver.findElement(By.xpath("//div[@id= 'rcpinglist']"));
+	                String ingredients = ingredientWebElement.getText();
+	                if (null != ingredients && null != eliminator && ingredients.toLowerCase().contains(eliminator.toLowerCase())) {
+	                    isEliminatorPresent.set(true);
+	                }
+	            } catch (Exception e) {
+	                System.out.print("No Such Element " + e.getLocalizedMessage());
+	            }
+	            try {
 
-		}   
+	                WebElement methodWebElement = driver.findElement(By.xpath("//div[@id='recipe_small_steps']"));
+	                String method = methodWebElement.getText();
+	                if (null != method && null != eliminator && method.toLowerCase().contains(eliminator.toLowerCase())) {
+	                    isEliminatorPresent.set(true);
+	                }
+	            } catch (Exception e) {
+	                System.out.print("No Such Element " + e.getLocalizedMessage());
+	            }
+	        });
+	
 		return isEliminatorPresent.get();
 	}
 }
