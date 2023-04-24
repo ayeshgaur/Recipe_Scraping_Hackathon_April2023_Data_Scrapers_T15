@@ -2,16 +2,21 @@ package com.tarladala.recipe.scraping.comorbidityPcos;
 
 import com.tarladala.recipe.scraping.base.BaseClass;
 import com.tarladala.recipe.scraping.utilities.WriteExcel;
+import io.netty.util.CharsetUtil;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ComorbidityPCos extends BaseClass {
 
@@ -38,24 +43,34 @@ public class ComorbidityPCos extends BaseClass {
                 String recipeUrl = recipeUrls.get(i);
                 driver.navigate().to(recipeUrl);
                 driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
-                WebElement ingredientList = driver.findElement(By.xpath("//div[@id= 'rcpinglist']"));
 
-                List<String> eliminators = Arrays.asList(new String[]{"Cake", "Pastries", "White Bread", "Pizza",
-                        "Burger", "ice cream", "soda", "Red Meat", "Processed Meat", "Milk", "Cheese", "Yogurt", "curd",
-                        "soy", "wheat", "pasta", "cereal", "gluten", "white rice", "Doughnuts", "Fries", "coffee", "vegetable oil",
-                        "soybean oil", "canola oil", "rapeseed oil", "sunflower oil", "safflower oil"});
+                List<String> eliminators = Arrays.asList(new String[]{"cake", "pastries", "white bread", "pizza",
+                        "burger", "ice cream", "soda", "red meat", "beef", "lamb", "pork", "processed meat", "ham",
+                        "sausage", "hotdog", "pepperoni", "sausage", "jerky", "deli meat", "fry", "fried",
+                        "milk", "cheese", "yogurt", "curd", "cream", "cottage cheese", "paneer", "soy", "wheat",
+                        "pasta", "cereal", "gluten", "all purpose flour", "rye", "barley", "white rice", "doughnuts",
+                        "Fries", "coffee", "vegetable oil", "soybean oil", "canola oil", "rapeseed oil",
+                        "sunflower oil", "safflower oil"});
 
 
-                if (isEliminated(ingredientList, eliminators)) {
+                if (isEliminated(eliminators)) {
                     //driver.navigate().to("//div/a[text()= 'Recipe A To Z']");
                 } else {
                     WriteExcel writeOutput = new WriteExcel();
                     //Recipe id
                     try {
-                        String recipeId = recipeUrl.substring(recipeUrls.lastIndexOf('-') + 1);
+                        /*String recipeId = recipeUrl.substring(recipeUrls.lastIndexOf('-') + 1);
                         System.out.print(recipeId);
-                        writeOutput.setCellData("PCOS", rowCounter, 0, recipeId);
-                    } catch (Exception I) {
+                        writeOutput.setCellData("PCOS", rowCounter, 0, recipeId);*/
+                        String regex = "\\d+";
+                        Pattern pattern = Pattern.compile(regex);
+                        Matcher matcher = pattern.matcher(recipeUrl);
+                        if (matcher.find()) {
+                            int Receipeid = Integer.parseInt(matcher.group());
+                            String Receipeidstr = Integer.toString(Receipeid);
+                            writeOutput.setCellData("PCOS", rowCounter, 0, Receipeidstr);
+                        }
+                    } catch (Exception e) {
 
                     }
 
@@ -144,11 +159,24 @@ public class ComorbidityPCos extends BaseClass {
     }
 
 
-    private boolean isEliminated(WebElement rcpinglist, List<String> eliminators) {
+    private boolean isEliminated(List<String> eliminators) {
         AtomicBoolean isEliminatorPresent = new AtomicBoolean(false);
+
         eliminators.parallelStream().forEach(eliminator -> {
             try {
-                if (null != rcpinglist.findElement(By.xpath("//*[text() ='" + eliminator + "']"))) {
+                WebElement ingredientWebElement = driver.findElement(By.xpath("//div[@id= 'rcpinglist']"));
+                String ingredients = ingredientWebElement.getText();
+                if (null != ingredients && null != eliminator && ingredients.toLowerCase().contains(eliminator.toLowerCase())) {
+                    isEliminatorPresent.set(true);
+                }
+            } catch (Exception e) {
+                System.out.print("No Such Element " + e.getLocalizedMessage());
+            }
+            try {
+
+                WebElement methodWebElement = driver.findElement(By.xpath("//div[@id='recipe_small_steps']"));
+                String method = methodWebElement.getText();
+                if (null != method && null != eliminator && method.toLowerCase().contains(eliminator.toLowerCase())) {
                     isEliminatorPresent.set(true);
                 }
             } catch (Exception e) {
