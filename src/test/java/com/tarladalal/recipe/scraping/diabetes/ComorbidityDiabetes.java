@@ -1,20 +1,15 @@
 package com.tarladalal.recipe.scraping.diabetes;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicBoolean;
-
+import com.tarladalal.recipe.scraping.base.BaseClass;
+import com.tarladalal.recipe.scraping.utilities.WriteExcel;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 
-import com.tarladalal.recipe.scraping.base.BaseClass;
-import com.tarladalal.recipe.scraping.utilities.WriteExcel;
+import java.io.IOException;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class ComorbidityDiabetes extends BaseClass {
 
