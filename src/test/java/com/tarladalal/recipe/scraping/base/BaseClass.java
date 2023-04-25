@@ -15,6 +15,7 @@ public class BaseClass {
         System.setProperty("webdriver.chrome.driver", "./src/test/resources/driver/chromedriver_win32 (1)/chromedriver.exe");
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--remote-allow-origins=*");
+        options.addArguments("--headless");
         driver = new ChromeDriver(options);
         driver.navigate().to("https://www.tarladalal.com/");
         driver.manage().window().maximize();
