@@ -1,4 +1,4 @@
-package com.tarladalala.recipe.csrapping.comorbidityDiabetics;
+package com.tarladalal.recipe.scraping.diabetes;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,10 +13,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 
-import com.tarladalal.base.Baseclass;
+import com.tarladalal.recipe.scraping.base.BaseClass;
 import com.tarladalal.recipe.scraping.utilities.WriteExcel;
 
-public class ComorbidityDiabetes extends Baseclass {
+public class ComorbidityDiabetes extends BaseClass {
 
 	@Test
 	public void extractRecipe() throws InterruptedException, IOException {

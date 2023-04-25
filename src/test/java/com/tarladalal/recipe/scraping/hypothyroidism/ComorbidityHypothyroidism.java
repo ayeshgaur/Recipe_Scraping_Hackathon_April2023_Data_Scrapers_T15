@@ -1,9 +1,9 @@
 
 
-package com.tarladala.recipe.scraping.comorbidityHypothyroidism;
+package com.tarladalal.recipe.scraping.hypothyroidism;
 
-import com.tarladala.recipe.scraping.base.BaseClass;
-import com.tarladala.recipe.scraping.utilities.WriteExcel;
+import com.tarladalal.recipe.scraping.base.BaseClass;
+import com.tarladalal.recipe.scraping.utilities.WriteExcel;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;

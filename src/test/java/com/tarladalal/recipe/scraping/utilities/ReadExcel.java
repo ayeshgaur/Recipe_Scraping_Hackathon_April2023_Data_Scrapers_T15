@@ -1,4 +1,4 @@
-package com.tarladala.recipe.scraping.utilities;
+package com.tarladalal.recipe.scraping.utilities;
 
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;

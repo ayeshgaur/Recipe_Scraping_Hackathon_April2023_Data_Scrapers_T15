@@ -1,4 +1,4 @@
-package com.tarladala.recipe.scraping.utilities;
+package com.tarladalal.recipe.scraping.utilities;
 
 import java.io.FileReader;
 import java.io.IOException;

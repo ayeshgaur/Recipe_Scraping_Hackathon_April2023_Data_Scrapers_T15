@@ -1,7 +1,7 @@
-package com.tarladala.recipe.scraping.comorbidityPcos;
+package com.tarladalal.recipe.scraping.pcos;
 
-import com.tarladala.recipe.scraping.base.BaseClass;
-import com.tarladala.recipe.scraping.utilities.WriteExcel;
+import com.tarladalal.recipe.scraping.base.BaseClass;
+import com.tarladalal.recipe.scraping.utilities.WriteExcel;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;

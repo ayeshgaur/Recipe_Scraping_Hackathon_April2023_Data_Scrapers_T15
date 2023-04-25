@@ -1,4 +1,4 @@
-package com.tarladala.recipe.scraping.base;
+package com.tarladalal.recipe.scraping.base;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;

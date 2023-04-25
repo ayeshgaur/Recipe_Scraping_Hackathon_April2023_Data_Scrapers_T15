@@ -1,6 +1,6 @@
-package com.tarladala.recipe.scraping.allergies;
-import com.tarladala.recipe.scraping.base.BaseClass;
-import com.tarladala.recipe.scraping.utilities.WriteExcel;
+package com.tarladalal.recipe.scraping.allergy;
+import com.tarladalal.recipe.scraping.base.BaseClass;
+import com.tarladalal.recipe.scraping.utilities.WriteExcel;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
@@ -21,7 +21,7 @@ public class Allergy extends BaseClass {
 	{
 		driver.findElement(By.xpath("//div/a[text()= 'Recipe A To Z']")).click();
 		Thread.sleep(2000);
-		int rowCounter = 1;
+		int setCellvalue=1;
 		// run in a loop for all recipe in a page
 		List< String> pageBeginsWithList = Arrays.asList(new String[]{"0-9","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"});
 		for(int k=0; k < pageBeginsWithList.size(); k++) {
@@ -35,6 +35,7 @@ public class Allergy extends BaseClass {
 			if (0 != lastPage) {
 				for (int j = 1; j <= lastPage; j++) {
 					int pageindex = j;
+
 					driver.navigate().to("https://www.tarladalal.com/RecipeAtoZ.aspx?beginswith="+pageBeginsWithList.get(k)+"&pageindex=" + j);
 					List<WebElement> recipeCardElements = driver.findElements(By.xpath("//div[@class='rcc_recipecard']"));
 					List<String> recipeUrls = new ArrayList<>();
@@ -54,15 +55,22 @@ public class Allergy extends BaseClass {
 						driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
 
 						List<String> eliminators = Arrays.asList(new String[]{"milk","soy","egg","Sesame","peanuts","walnut","almond","hazelnut","pecan","cashew","pistachio","shell fish","seafood"});
+						//List<String> eliminators = Arrays.asList(new String[]{"milk","soy","egg"});
+
+						//	System.out.println("Print Setvalue above for loop elese:"+setCellvalue);
+
 						for(int i = 0; i < eliminators.size();i++) {
+							//int setCellvalue=1;
+							System.out.println("Print Setvalue above for loop elese:"+setCellvalue);
 							String sheetname=eliminators.get(i)+"Allergies";
-							int setCellvalue = 1;
+							System.out.println("Print Setvalue inside for loop elese:"+setCellvalue);
 							if (isEliminated(eliminators.get(i))) {
 
 							}
 
 							else {
 
+								System.out.println("Print Setvalue inside elese:"+setCellvalue);
 								WriteExcel writeOutput = new WriteExcel();
 								WebElement recipeTitle = driver.findElement(By.xpath("//span[@id= 'ctl00_cntrightpanel_lblRecipeName']"));
 								System.out.println(recipeTitle.getText());
@@ -76,7 +84,7 @@ public class Allergy extends BaseClass {
 									System.out.println("Preparation Time:"+" "+preprationtime.getText());
 									writeOutput.setCellAllergyData(sheetname, setCellvalue,5, preprationtime.getText());
 								} catch (Exception e) {
-									// foodCategory	 
+									// foodCategory
 								}
 
 								// recipeCategory
@@ -85,7 +93,7 @@ public class Allergy extends BaseClass {
 									writeOutput.setCellAllergyData(sheetname, setCellvalue, 2, recipeCategory.getText());
 									System.out.print(recipeCategory.getText());
 								} catch (Exception e) {
-									// foodCategory	 
+									// foodCategory
 								}
 								try {
 									WebElement foodCategory = driver.findElement(By.xpath("//a/span[text() = 'No Cooking Veg Indian']"));
@@ -99,7 +107,7 @@ public class Allergy extends BaseClass {
 									System.out.println("Cooking Time:"+" "+cookingtime.getText());
 									writeOutput.setCellAllergyData(sheetname, setCellvalue,6, cookingtime.getText());
 								} catch (Exception e) {
-									// foodCategory	 
+									// foodCategory
 								}
 
 								try {
@@ -108,7 +116,7 @@ public class Allergy extends BaseClass {
 									System.out.println("Preparation Method:"+" "+preprationMethod.getText());
 									writeOutput.setCellAllergyData(sheetname, setCellvalue,7, preprationMethod.getText());
 								} catch (Exception e) {
-									// foodCategory	 
+									// foodCategory
 								}
 
 								// print`Ingredients list
@@ -117,7 +125,7 @@ public class Allergy extends BaseClass {
 									System.out.println("Ingredients List:"+" "+extractIngrendientlist.getText());
 									writeOutput.setCellAllergyData(sheetname, setCellvalue,4, extractIngrendientlist.getText());
 								} catch (Exception e) {
-									// foodCategory	 
+									// foodCategory
 								}
 								//Nutrients value of recipe
 
@@ -147,15 +155,20 @@ public class Allergy extends BaseClass {
 										writeOutput.setCellAllergyData(sheetname, setCellvalue,0, Receipeidstr);
 									}
 								} catch (Exception e) {
-									// foodCategory	 
+									// foodCategory
 								}
 
-								setCellvalue++;
+								//setCellvalue++;
 								//driver.navigate().back();
 								Thread.sleep(1000);
 
 							}
+
 						}
+						System.out.print("Before increment"+setCellvalue);
+						setCellvalue++;
+						System.out.print("After increment"+setCellvalue);
+
 
 					}
 				}
@@ -176,7 +189,7 @@ public class Allergy extends BaseClass {
 			}
 		} catch (Exception e) {
 			System.out.print("No Such Element " + e.getLocalizedMessage());
-			
+			System.out.print("Helooooooooooo -  Fail");
 		}
 		try {
 
@@ -187,7 +200,7 @@ public class Allergy extends BaseClass {
 			}
 		} catch (Exception e) {
 			System.out.print("No Such Element " + e.getLocalizedMessage());
-			
+			System.out.print("Helooooooooooo -  Fail");
 		}
 		//    });
 		return isEliminatorPresent.get();

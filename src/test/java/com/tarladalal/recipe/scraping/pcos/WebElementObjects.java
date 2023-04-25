@@ -1,4 +1,4 @@
-package com.tarladala.recipe.scraping.comorbidityPcos;
+package com.tarladalal.recipe.scraping.pcos;
 
 import org.openqa.selenium.By;
 
