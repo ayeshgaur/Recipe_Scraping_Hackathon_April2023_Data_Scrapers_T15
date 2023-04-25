@@ -176,7 +176,7 @@ public class Allergy extends BaseClass {
 			}
 		} catch (Exception e) {
 			System.out.print("No Such Element " + e.getLocalizedMessage());
-			System.out.print("Helooooooooooo -  Fail");
+			
 		}
 		try {
 
@@ -187,7 +187,7 @@ public class Allergy extends BaseClass {
 			}
 		} catch (Exception e) {
 			System.out.print("No Such Element " + e.getLocalizedMessage());
-			System.out.print("Helooooooooooo -  Fail");
+			
 		}
 		//    });
 		return isEliminatorPresent.get();
