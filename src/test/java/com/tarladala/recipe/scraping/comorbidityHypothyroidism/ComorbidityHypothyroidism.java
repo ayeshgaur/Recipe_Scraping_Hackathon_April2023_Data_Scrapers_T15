@@ -1,4 +1,7 @@
-package com.tarladala.recipe.scraping.comorbidityPcos;
+
+
+
+package com.tarladala.recipe.scraping.comorbidityHypothyroidism;
 
 import com.tarladala.recipe.scraping.base.BaseClass;
 import com.tarladala.recipe.scraping.utilities.WriteExcel;
@@ -11,18 +14,14 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class ComorbidityPCos extends BaseClass {
+public class ComorbidityHypothyroidism extends BaseClass {
 
 
     @Test
     public void extractRecipe() throws InterruptedException, IOException {
-        List<String> eliminators = Arrays.asList(new String[]{"cake", "pastries", "white bread", "pizza",
-                "burger", "ice cream", "soda", "red meat", "beef", "lamb", "pork", "processed meat", "ham",
-                "sausage", "hotdog", "pepperoni", "sausage", "jerky", "deli meat", "fry", "fried",
-                "milk", "cheese", "yogurt", "curd", "cream", "cottage cheese", "paneer", "soy", "wheat",
-                "pasta", "cereal", "gluten", "all purpose flour", "rye", "barley", "white rice", "doughnuts",
-                "Fries", "coffee", "vegetable oil", "soybean oil", "canola oil", "rapeseed oil",
-                "sunflower oil", "safflower oil"});
+        List<String> eliminators = Arrays.asList(new String[]{"Tofu", "Edamame", "Tempeh  ", "Cauliflower",
+                "Cabbage", "Broccoli", "Kale", "Spinach ", "Sweet potatoes", "Strawberries ", "Pine nuts" ,"Peanuts","Peaches","Green tea","Cofee","Alochohol","Soy milk","White bread",
+                "Cakes","Pastries","Processed food- ham, bacon, salami, sausages","Fried food","Sugar","Frozen food","Gluten","Sodas","Energy drinks containing caffeine","Candies"});
 
         driver.findElement(By.xpath("//div/a[text()= 'Recipe A To Z']")).click();
         Thread.sleep(2000);
@@ -54,8 +53,7 @@ public class ComorbidityPCos extends BaseClass {
                     WriteExcel writeOutput = new WriteExcel();
                     //Recipe id
                     try {
-                        System.out.print(recipeId);
-                        writeOutput.setCellData("PCOS", rowCounter, 0, recipeId);
+                        writeOutput.setCellData("Hypothyroidism", rowCounter, 0, recipeId);
                     } catch (Exception e) {
 
                     }
@@ -64,7 +62,7 @@ public class ComorbidityPCos extends BaseClass {
                     try {
                         WebElement recipeTitle = driver.findElement(By.xpath("//span[@id= 'ctl00_cntrightpanel_lblRecipeName']"));
                         System.out.print(recipeTitle.getText());
-                        writeOutput.setCellData("PCOS", rowCounter, 1, recipeTitle.getText());
+                        writeOutput.setCellData("Hypothyroidism", rowCounter, 1, recipeTitle.getText());
 
                     } catch (Exception e) {
 
@@ -72,7 +70,7 @@ public class ComorbidityPCos extends BaseClass {
                     try {
                         WebElement recipeCategory = driver.findElement(By.xpath("//span[@itemprop= 'description']/*[contains (text(), 'breakfast') or contains (text(), 'lunch') or contains (text(), 'dinner')]"));
                         System.out.print(recipeCategory.getText());
-                        writeOutput.setCellData("PCOS", rowCounter, 2, recipeCategory.getText());
+                        writeOutput.setCellData("Hypothyroidism", rowCounter, 2, recipeCategory.getText());
 
                     } catch (Exception e) {
 
@@ -80,7 +78,7 @@ public class ComorbidityPCos extends BaseClass {
                     try {
                         WebElement foodCategory = driver.findElement(By.xpath("//a/span[text()= 'No Cooking Veg Indian']"));
                         System.out.print(foodCategory.getText());
-                        writeOutput.setCellData("PCOS", rowCounter, 3, foodCategory.getText());
+                        writeOutput.setCellData("Hypothyroidism", rowCounter, 3, foodCategory.getText());
 
                     } catch (Exception e) {
 
@@ -89,7 +87,7 @@ public class ComorbidityPCos extends BaseClass {
                     try {
                         WebElement nameOfIngredients = driver.findElement(By.xpath("//div[@id= 'rcpinglist']"));
                         System.out.print(nameOfIngredients.getText());
-                        writeOutput.setCellData("PCOS", rowCounter, 4, nameOfIngredients.getText());
+                        writeOutput.setCellData("Hypothyroidism", rowCounter, 4, nameOfIngredients.getText());
 
                     } catch (Exception e) {
 
@@ -98,7 +96,7 @@ public class ComorbidityPCos extends BaseClass {
                     try {
                         WebElement preparationTime = driver.findElement(By.xpath("//p/time[@itemprop= 'prepTime']"));
                         System.out.print(preparationTime.getText());
-                        writeOutput.setCellData("PCOS", rowCounter, 5, preparationTime.getText());
+                        writeOutput.setCellData("Hypothyroidism", rowCounter, 5, preparationTime.getText());
 
                     } catch (Exception e) {
 
@@ -107,7 +105,7 @@ public class ComorbidityPCos extends BaseClass {
                     try {
                         WebElement cookTime = driver.findElement(By.xpath("//p/time[@itemprop= 'cookTime']"));
                         System.out.print(cookTime.getText());
-                        writeOutput.setCellData("PCOS", rowCounter, 6, cookTime.getText());
+                        writeOutput.setCellData("Hypothyroidism", rowCounter, 6, cookTime.getText());
 
                     } catch (Exception e) {
 
@@ -116,7 +114,7 @@ public class ComorbidityPCos extends BaseClass {
                     try {
                         WebElement prepMethod = driver.findElement(By.xpath("//div[@id= 'ctl00_cntrightpanel_pnlRcpMethod']"));
                         System.out.print(prepMethod.getText());
-                        writeOutput.setCellData("PCOS", rowCounter, 7, prepMethod.getText());
+                        writeOutput.setCellData("Hypothyroidism", rowCounter, 7, prepMethod.getText());
 
                     } catch (Exception e) {
 
@@ -124,14 +122,14 @@ public class ComorbidityPCos extends BaseClass {
                     try {
                         WebElement nutrients = driver.findElement(By.xpath("//table[@id= 'rcpnutrients']"));
                         System.out.print(nutrients.getText());
-                        writeOutput.setCellData("PCOS", rowCounter, 8, nutrients.getText());
+                        writeOutput.setCellData("Hypothyroidism", rowCounter, 8, nutrients.getText());
 
                     } catch (Exception e) {
 
                     }
                     try {
                         System.out.print(recipeUrl);
-                        writeOutput.setCellData("PCOS", rowCounter, 9, recipeUrl);
+                        writeOutput.setCellData("Hypothyroidism", rowCounter, 9, recipeUrl);
                     } catch (Exception e) {
 
                     }
