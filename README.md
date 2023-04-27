@@ -17,18 +17,14 @@ R-->configFile
 D-->E{Packages}
 E --> F[Base]
 F-->BaseClass
-E-->allergy
-E -->diabetes
-E-->hypertesnsion
-E --> RunnerClass
-
+E-->allergy -->Allergy
+E -->diabetes-->ComorbidityDiabetes
+E-->hypertesnsion-->ComorbidityHypertension
+E -->hypothyroidism-->ComorbidityHypothyroidism
+E-->pcos-->PCOS
+E-->G[utilities]
+G-->ReadExcel
+G-->WriteExcel
+G-->ReadConfig
 
 ```
-
-## challenges
-1. Passing multiple values as eliminators and collecting output as multiple values.
-2. Finding most effective way to reach the recipe page to extract data
-3. looping through pages
-3. looping through all the letters (A-Z)
-4. defining xpaths in a manner that is reusable with each recipe that is being extracted
-5. handling exceptions
