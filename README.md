@@ -7,25 +7,21 @@ The purpose of the hackathon is to extract as many recipes as possible for the p
 ## Project Structure
 
 ```mermaid
-flowchart PS
-A[Recipe Scraping Hackathon]--> B[src]--> C[test] -->D[java]
+flowchart 
+A[Recipe Scraping Hackathon] --> B[src]--> C[test] -->D[java]
 C--> R[Resources]
-R-->[driver]
-R-->[AllergyDataExcel]
-R-->[config]
-R-->[outPutExcel]
-R-->[Ingredients&ComorbidityExcel]
-D[java]-->E[com.tarladalal.recipe.scraping]
-E-->F[base]-->[BaseClass]
-E-->G[allergy]-->S[Allergy]
-E-->H[diabetes]-->T[ComorbidityDiabetes]
-E-->I[hypertension]-->U[ComorbidityHypertension]
-E-->J[hypothyroidism]-->V[ComorbidityHypothyroidism]
-E-->K[pcos]-->W[PCOS]
-E-->L[utilities]-->Y[ReadConfig]
-L-->Z[ReadExcel]
-L-->Q[WriteExcel]
-E-->M[pagination]
+R-->driver
+R--> outPutDataExcel
+R-->Ingredients&ComorbidityExcel
+R-->configFile
+D-->E{Packages}
+E --> F[Base]
+F-->BaseClass
+E-->allergy
+E -->diabetes
+E-->hypertesnsion
+E --> RunnerClass
+
 
 ```
 
