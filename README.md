@@ -28,11 +28,3 @@ G-->WriteExcel
 G-->ReadConfig
 
 ```
-
-## Challenges
-
-1. Passing multiple values as eliminators and collecting output as multiple values.
-2. Finding most effective way to reach the recipe pageto extract data.
-3. Looping through Pages and Recipes.
-4. Defining xpaths in a manner that is reusable with each recipe that is being extracted.
-5. Handling Exceptions.
